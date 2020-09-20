@@ -1,0 +1,1 @@
+"0","plot(time,quad.mod$residuals,type='l')"

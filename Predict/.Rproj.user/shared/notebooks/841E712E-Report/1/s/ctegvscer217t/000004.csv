@@ -1,0 +1,2 @@
+"0","model3 = lm(log_jj ~ time+time2+q1+q2+q3)"
+"0","plot(time, log_jj,type='l')"

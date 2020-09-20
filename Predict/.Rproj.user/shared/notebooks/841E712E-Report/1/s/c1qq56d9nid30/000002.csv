@@ -1,0 +1,2 @@
+"0","price.diff = diff(price, lag = 182)"
+"0","plot(price.diff, type = ""l"")"

@@ -1,0 +1,5 @@
+"0","dat = read.csv(""stocks.csv"")"
+"0","date = dat$Date"
+"0","price = dat$Price"
+"0","time = dat$X"
+"0","plot(date, price, type = ""l"")"

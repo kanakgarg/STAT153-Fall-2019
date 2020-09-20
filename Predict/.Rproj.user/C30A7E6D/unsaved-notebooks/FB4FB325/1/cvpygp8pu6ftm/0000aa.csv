@@ -1,0 +1,2 @@
+"0","reg4<-lm(a$y4 ~ a$x4, data = a)"
+"0","abline(reg4, col=""blue"")"

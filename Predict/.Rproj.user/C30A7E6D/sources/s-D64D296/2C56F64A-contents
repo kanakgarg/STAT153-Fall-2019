@@ -1,0 +1,48 @@
+scs = read.csv('~/Dropbox/Teaching/STAT 153/Datasets/SpicyChickenSandwich.csv')
+
+# Convert dates into values (not necessary, but I think it's helpful here)
+time = seq(2004,2019+8/12,by=1/12)
+
+# pull chicken column out of dataset
+scs = scs[,2]
+
+# Time series plot
+plot(time,scs,type='l')
+
+#### Quadratic model
+time2 = time^2
+quad.mod = lm(scs~time+time2)
+lines(time,quad.mod$fitted.values,col='red')
+
+# residual plot
+plot(time,quad.mod$residuals,type='l')
+
+# ACF
+acf(quad.mod$residuals,lag.max = 10)
+
+#### Smoothing
+q = 7
+sm.par = 1+2*q #This sm.par equals (1+2q) in our notation
+filter.weights = rep(1/sm.par,sm.par)
+smooth.mod = filter(scs, filter.weights)
+
+plot(time,scs,type='l',main='Smoothed Chicken')
+lines(time,smooth.mod,col='blue',lwd=2)
+
+# Residual plot
+resid = scs - smooth.mod
+plot(time,resid,type='l')
+
+# ACF
+acf(resid[(q+1):(length(resid)-q)])
+
+#### Isotonic
+iso.mod = isoreg(time,scs)
+
+plot(time,scs,type='l',main='Smoothed Chicken')
+lines(time,iso.mod$yf,col='blue',lwd=2)
+
+resid=scs-iso.mod$yf
+plot(resid,type='l')
+
+acf(resid)

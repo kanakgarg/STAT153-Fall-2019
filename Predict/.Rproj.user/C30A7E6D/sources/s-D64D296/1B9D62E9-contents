@@ -1,0 +1,58 @@
+# Read in Turkey Data
+Turkey.data = read.csv('~/Dropbox/Teaching/STAT 153/Datasets/Turkey.csv')
+time = 1:nrow(Turkey.data)
+turkey = Turkey.data$Turkey
+plot(time,turkey,type='l',lwd=2)
+
+
+## Trend Models
+
+#  Exponential Smoothing $$\hat{m}_t = \frac{1-w}{w}\left[w X_t + w^2 X_{t-1} + w^3 X_{t-2} + ... \right]$$
+w = .5^(1:100)
+w = w/sum(w)
+exp.smooth = filter(turkey,filter = w,sides=1)
+plot(time,turkey,type='l')
+lines(time,exp.smooth,col='red')
+
+# Binomial Weights $$a_j = 2^{-q} \, {q\choose q/2+j} \quad \text{ for } j \in -\frac{q}{2},-\frac{q}{2} +1,...,-1,0,1,...,\frac{q}{2}$$
+q = 4
+bin = 2^(-q)*choose(q,q/2+((-q/2):(q/2)))
+bin.smooth = filter(turkey,filter=bin,sides=2)
+plot(time,turkey,type='l')
+lines(time,bin.smooth,col='red')
+
+
+# Differencing
+plot(turkey,type='l')
+
+# Seasonal Differencing
+plot(diff(turkey,lag = 12),type='l')
+
+plot(turkey,type='l')
+plot(diff(diff(turkey,lag = 12)),type='l')
+
+# Using Differences to Forecast
+diff(turkey,lag = 1)
+tail(turkey,1) + mean(diff(turkey,lag = 1))
+
+# Forecasting with double difference
+mean(diff(diff(turkey,lag = 12)))
+t = length(turkey)
+turkey[t] + turkey[t-12+1] - turkey[t-12] + mean(diff(diff(turkey,lag = 12)))
+
+# Seasonality
+
+# Parametric Seasonality Function
+#   s_t = a_0 + \sum_{f=1}^k \left( a_f \cos (2\pi f t/d) + b_f \sin(2\pi f t/d) \right)
+time = 1:length(turkey)
+# time = seq(2004,2019+8/12,by =1/12)
+cos1 = cos(2*pi*1*time/12)
+plot(time,cos1,type='l')
+
+# Trend and Seasonality Models
+november = (time%%12)==11
+plot(time,turkey,type='l')
+model = lm(turkey~time+november)
+lines(time,model$fitted.values,col='orange',lwd=3)
+plot(turkey-model$fitted,type='l')
+

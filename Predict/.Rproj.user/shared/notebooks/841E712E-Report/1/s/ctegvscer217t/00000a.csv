@@ -1,0 +1,1 @@
+"0","lines(time,exp(model3$fitted.values),col=3,lwd=3)"

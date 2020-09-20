@@ -1,0 +1,73 @@
+---
+title: "hw1"
+author: "Kanak Garg"
+date: "2/5/2020"
+output: html_document
+---
+
+```{r setup, echo==FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##5a
+
+
+```{r, echo==FALSE}
+library(datasets)
+a <- anscombe
+par(mfrow=c(2,2))
+plot(a$x1,a$y1, main=paste("Dataset One"), )
+reg1<-lm(a$y1 ~ a$x1, data = a)
+abline(reg1, col="blue")
+
+plot(a$x2,a$y2, main=paste("Dataset Two"))
+reg2<-lm(a$y2 ~ a$x2, data = a)
+abline(reg2, col="blue")
+
+plot(a$x3,a$y3, main=paste("Dataset Three"))
+reg3<-lm(a$y3 ~ a$x3, data = a)
+abline(reg3, col="blue")
+
+plot(a$x4,a$y4, main=paste("Dataset Four"))
+reg4<-lm(a$y4 ~ a$x4, data = a)
+abline(reg4, col="blue")
+
+```
+Dataset One's linear model seems to be accurate. If we had more data, then it would follow the general trend of growth. Dataset Two's linear model does not seem to be a good fit, as it would be wise to transform the data to figure out a better linear model -- it seems to be parabolic. Dataset Three's linear model is a pretty good fit however it could be better if we consider the outlier at x = 13. Dataset Four's linear model is not a good fit as it doesnt match the data.
+
+
+##5b
+```{r, echo==FALSE}
+coeff1=coefficients(reg1)
+coeff1[2]*10 + coeff1[1] 
+
+```
+Dataset 1: The prediction seems accurate for x = 10, as it matches our data. However if it were a different value, it is possible for it not to be accurate.
+
+```{r, echo==FALSE}
+coeff2=coefficients(reg2)
+coeff2[2]*10 + coeff2[1] 
+
+```
+Dataset 2: The prediction for dataset 2 is not accurate as a linear model may not be the best fit for the data. The data's true value for 10 is around 9, while this predicts 8.
+
+```{r, echo==FALSE}
+coeff3=coefficients(reg3)
+coeff3[2]*10 + coeff3[1]
+
+```
+Dataset 3: The prediction based on the data is pretty accurate, however it could be more accurate as the outliear at x = 13 skews the line of best fit.
+
+```{r, echo==FALSE}
+coeff4=coefficients(reg4)
+coeff4[2]*10 + coeff4[1] 
+```
+Dataset 4: For the fourth data set it is very hard to tell if it is a good prediction. We would need more data to tell if it is a good prediction or not.
+
+
+##6a
+```{r}
+
+load(MWwords)
+```
+

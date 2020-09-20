@@ -1,0 +1,30 @@
+### Here I make up a time series
+time = 1:100
+X = time*.5 + rnorm(100,0,4)
+plot(time, X, type='l')
+
+
+## First Differences
+first.diffs = diff(X)
+plot(first.diffs, type = "l", ylab = "First Differences", xlab = "Time")
+
+## Second Differences
+second.diffs = diff(first.diffs)
+plot(second.diffs,type='l')
+
+
+
+
+### Now I look at the seasonal data: Turkey
+Turkey.data = read.csv('Turkey.csv')
+time = 1:nrow(Turkey.data)
+turkey = Turkey.data$Turkey
+plot(time,turkey,type='l',lwd=2)
+acf(turkey) #major autocorrelation on 12th lag!
+
+## Seasonal Differences
+d = 12 # space between seasonal effects
+seasonal.diffs = diff(turkey,lag = d)
+plot(seasonal.diffs,type='l') #note change in the magnitude of the y-axis!
+acf(seasonal.diffs) # much better, but not perfect. 
+ 

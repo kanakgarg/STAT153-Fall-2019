@@ -1,0 +1,2 @@
+"0","resid = price-model2$fitted.values"
+"0","plot(resid, lag.max = 200)"

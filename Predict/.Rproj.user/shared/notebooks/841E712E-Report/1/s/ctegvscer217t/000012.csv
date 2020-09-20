@@ -1,0 +1,1 @@
+"0","lines(time, model2$fitted.values, col=2, lwd=2)"

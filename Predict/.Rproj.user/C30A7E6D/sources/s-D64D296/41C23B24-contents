@@ -1,0 +1,7 @@
+# Intro to ARMAacf() 
+ARMAacf(ma=c(-1/2),ar=c(.1,.3))
+
+#Intro to arima.sim()
+x = arima.sim(model = list(ma=c(-.5), ar=c(.1,.3)),n = 1000)
+acf(x)
+plot.ts(x)

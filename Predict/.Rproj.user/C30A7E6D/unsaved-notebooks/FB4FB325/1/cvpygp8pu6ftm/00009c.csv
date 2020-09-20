@@ -1,0 +1,4 @@
+"0","library(datasets)"
+"0","a <- anscombe"
+"0","par(mfrow=c(2,2))"
+"0","plot(a$x1,a$y1, main=paste(""Dataset One""), )"

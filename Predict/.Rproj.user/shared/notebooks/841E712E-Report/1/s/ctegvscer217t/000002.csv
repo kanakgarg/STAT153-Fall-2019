@@ -1,0 +1,5 @@
+"0","q1 = time%%4 == 1"
+"0","q2 = time%%4 == 2"
+"0","q3 = time%%4 == 3"
+"0","log_jj = log(price)"
+"0","plot(log_jj)"

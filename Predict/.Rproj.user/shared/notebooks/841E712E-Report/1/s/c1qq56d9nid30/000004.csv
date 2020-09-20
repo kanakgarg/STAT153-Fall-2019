@@ -1,0 +1,2 @@
+"0","price.dd = diff(price.diff)"
+"0","plot(price.dd, type = ""l"")"

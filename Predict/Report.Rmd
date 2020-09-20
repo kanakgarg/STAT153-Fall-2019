@@ -1,0 +1,83 @@
+---
+title: "Stock Predict"
+author: "Kanak Garg"
+date: "11/21/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exploratory Data Analysis
+
+```{r cars}
+dat = read.csv("stocks.csv")
+date = dat$Date
+price = dat$Price
+time = dat$X
+plot(date, price, type = "l")
+plot(time, price, type = "l")
+```
+
+##Modeling Time
+
+
+```{r}
+#plot quadratic model
+time2 = time^2
+quad.mod = lm(price~time+time2)
+plot(time,price,type='l')
+lines(time,quad.mod$fitted.values,col='red')
+```
+
+
+```{r}
+plot(time,quad.mod$residuals,type='l')
+acf(quad.mod$residuals,lag.max = 200)
+pacf(quad.mod$residuals,lag.max = 250)
+```
+
+```{r}
+price.diff = diff(price, lag = 182)
+plot(price.diff, type = "l")
+price.dd = diff(price.diff)
+plot(price.dd, type = "l")
+acf(price.dd,lag.max = 300)
+pacf(price.dd,lag.max = 300)
+
+
+```
+
+```{r}
+q1 = time%%4 == 1
+q2 = time%%4 == 2
+q3 = time%%4 == 3
+
+log_jj = log(price)
+plot(log_jj)
+model3 = lm(log_jj ~ time+time2+q1+q2+q3)
+
+plot(time, log_jj,type='l')
+lines(time,model3$fitted.values,col=2,lwd=3)
+
+plot(time,price,type='l')
+lines(time,exp(model3$fitted.values),col=3,lwd=3)
+
+model1 = lm(price ~ poly(time,2))
+
+plot(time, price, type='l')
+lines(time, model1$fitted.values, col=2, lwd=2)
+
+model2 = lm(price ~ poly(time,2)+q1 + q2 +q3)
+plot(time, price, type='l')
+lines(time, model2$fitted.values, col=2, lwd=2)
+
+resid = price-model2$fitted.values
+plot(resid, lag.max = 200)
+acf(resid, lag.max = 200)
+
+
+##not log
+```
+

@@ -1,0 +1,2 @@
+"0","model1 = lm(price ~ poly(time,2))"
+"0","plot(time, price, type='l')"

@@ -1,0 +1,31 @@
+data("JohnsonJohnson")
+plot(JohnsonJohnson)
+time = 1:length(JohnsonJohnson)
+time2 = time^2
+model1 = lm(JohnsonJohnson ~ poly(time,2))
+
+plot(time, JohnsonJohnson, type='l')
+lines(time, model1$fitted.values, col=2, lwd=2)
+q1 = time%%4 == 1
+q2 = time%%4 == 2
+q3 = time%%4 == 3
+
+model2 = lm(JohnsonJohnson ~ poly(time,2)+q1 + q2 +q3)
+plot(time, JohnsonJohnson, type='l')
+lines(time, model2$fitted.values, col=2, lwd=2)
+
+resid = JohnsonJohnson-model2$fitted.values
+plot(resid)
+acf(resid)
+
+
+### Variance Stabilizing
+log_jj = log(JohnsonJohnson)
+plot(log_jj)
+model3 = lm(log_jj ~ time+time2+q1+q2+q3)
+
+plot(time, log_jj,type='l')
+lines(time,model3$fitted.values,col=2,lwd=3)
+
+plot(time,JohnsonJohnson,type='l')
+lines(time,exp(model3$fitted.values),col=3,lwd=3)

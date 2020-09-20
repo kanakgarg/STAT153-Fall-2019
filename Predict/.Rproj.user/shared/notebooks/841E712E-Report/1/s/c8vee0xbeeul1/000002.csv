@@ -1,0 +1,4 @@
+"0","#plot quadratic model"
+"0","time2 = time^2"
+"0","quad.mod = lm(price~time+time2)"
+"0","plot(time,price,type='l')"
